@@ -5,12 +5,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
-    <title>Project</title>
+    <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="itempage.js" defer></script>
+    <script src="product.js" defer></script>
+    <title>Assignment 4. Exercise 1</title>
   </head>
 
   <body>
-   
+    <div class="wrapper">
+      <h1>Web Components</h1>
+      <p>Web Components is a suite of different technologies allowing you to create reusable custom elements — with their functionality encapsulated away from the rest of your code — and utilize them in your web apps.</p>
+
+      <h2>Concept and usage</h2>
+      <p>As developers, we all know that reusing code as much as possible is a good idea. This has traditionally not been so easy for custom markup structures — think of the complex HTML (and associated style and script) you've sometimes had to write to render custom UI controls, and how using them multiple times can turn your page into a mess if you are not careful.</p>
+
+      <p>Web Components aims to solve such problems — it consists of three main technologies, which can be used together to create versatile custom elements with encapsulated functionality that can be reused wherever you like without fear of code collisions.</p>
+
+      <info-message>
+        <span slot="title">Important!</span>
+        <ul slot="message">
+          <li><strong>Custom elements</strong>: A set of JavaScript APIs that allow you to define custom elements and their behavior, which can then be used as desired in your user interface.</li>
+          <li><strong>Shadow DOM</strong>: A set of JavaScript APIs for attaching an encapsulated "shadow" DOM tree to an element — which is rendered separately from the main document DOM — and controlling associated functionality. In this way, you can keep an element's features private, so they can be scripted and styled without the fear of collision with other parts of the document.</li>
+          <li><strong>HTML templates</strong>: The <code>&lt;template&gt;</code> and <code>&lt;slot&gt;</code> elements enable you to write markup templates that are not displayed in the rendered page. These can then be reused multiple times as the basis of a custom element's structure.</li>
+        </ul>
+      </info-message>
+
+      <info-message>
+        <span slot="title">Templates & Shadow DOM</span>
+        <p slot="message">Templates are well-supported in browsers; the Shadow DOM API is supported by default in Firefox (version 63 onwards), Chrome, Opera, Safari, and Edge (starting with version 79).</p>
+      </info-message>
+
+      <p>Text copied from <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">https://developer.mozilla.org/en-US/docs/Web/Web_Components</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots">https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots</a>.</p>
+    </div>
   </body>
 
 </html>
