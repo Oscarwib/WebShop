@@ -77,8 +77,8 @@ template.innerHTML = `
 </style>
 
 <div class="itempage">
-  <div class="image"></div>
-  <div class="right">
+<div class="image"></div>
+<div class="right">
   <div class="title">
     <slot name="title">TITLE GOES HERE</slot>
   </div>
@@ -89,7 +89,7 @@ template.innerHTML = `
     <slot name="info">MESSAGE</slot>
   </div>
   <button>Add to Shopping Cart</button>
-  </div>
+</div>
 </div>
 
   `;
