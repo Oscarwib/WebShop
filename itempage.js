@@ -54,12 +54,22 @@ template.innerHTML = `
         font-size: 16px;
         background-color: black;
         cursor: pointer;
+        background-position: center;
+        transition: background 0.8s;
     }
 
     button:hover {
-        opacity: 0.5;
+        background-color: #4e4e4e;
+        background-image: radial-gradient(circle,transparent 1%, #4e4e4e 1%);
+        background-position: center;
+        background-size: 15000%;
     }
 
+    button:active {
+        transition: background 0s;
+        background-color: #c3c3c3;
+        background-size: 100%;
+    }
 
 
   
