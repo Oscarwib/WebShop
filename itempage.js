@@ -1,63 +1,90 @@
 const template = document.createElement("template");
 template.innerHTML = `
-<link
-rel="stylesheet"
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
 
 <style>
-    .infobox {
+    .itempage {
         border: 1px solid black;
-        margin: 15px auto;
-        width: 80vmin;
+        margin: 100px auto;
+        width: 70%;
+        height: fit-content;
+        display: flex;
     }
 
-    .heading {
+    .right {
         display: flex;
-        flex-flow: row;
-        align-items: center;
         width: 100%;
-        background-color: orange;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 25px 50px;
+        gap: 20px;
+        // text-align; center;
     }
 
     .title {
-        color: white;
+        font-size: 24px;
+        color: black;
         font-weight: bold;
         font-family: 'Arial';
     }
 
-    .icon {
-        margin: 3px;
+    .price {
+        font-size: 36px;
+        font-weight: bold;
+        font-family: arial;
     }
 
-    .message {
+    img {
+        width: 40vw;
+        height: 40vh;
+    }
+
+    .info {
         font-size: 16px;
-        padding: 10px;
+        // padding: 10px;
         font-family: 'Arial';
 
-    }     
+    }
+
+    button {
+        all: unset;
+        padding: 10px 15px;
+        border-radius: 30px;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        background-color: black;
+        cursor: pointer;
+    }
+
+    button:hover {
+        opacity: 0.5;
+    }
+
+
+
+  
+
 </style>
 
-  <div class="infobox">
-    <div class="heading">
-      <div class="icon center">
-        <i
-          class="fa fa-info-circle fa-lg fa-inverse fa-fw"
-          aria-hidden="true"
-        ></i>
-      </div>
-      <div class="title">
-        <p>
-          <slot name="title">TITLE GOES HERE</slot>
-        </p>
-      </div>
-    </div>
-    <div class="message">
-      <slot name="message">MESSAGE</slot>
-    </div>
+<div class="itempage">
+  <div class="image"></div>
+  <div class="right">
+  <div class="title">
+    <slot name="title">TITLE GOES HERE</slot>
   </div>
+  <div class="price">
+    <slot name="price">MESSAGE</slot>
+  </div>
+  <div class="info">
+    <slot name="info">MESSAGE</slot>
+  </div>
+  <button>Add to Shopping Cart</button>
+  </div>
+</div>
+
   `;
 
-class infobox extends HTMLElement {
+class itempage extends HTMLElement {
     constructor() {
         super();
 
@@ -65,6 +92,17 @@ class infobox extends HTMLElement {
 
         this.shadowRoot.appendChild(template.content.cloneNode(true));
     }
+
+    connectedCallback() {
+        // Check for <img> tags inside the light DOM
+        const imageSlot = this.shadowRoot.querySelector('.image');
+        const lightImage = this.querySelector('img');
+
+        if (lightImage) {
+            // Move the <img> tag into the shadow DOM's .image div
+            imageSlot.appendChild(lightImage);
+        }
+    }
 }
 
-window.customElements.define("info-message", infobox);
+window.customElements.define("item-page", itempage);
