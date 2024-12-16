@@ -3,21 +3,28 @@ template.innerHTML = `
 
 <style>
     .itempage {
-        border: 1px solid black;
+        // border: 1px solid black;
         margin: 100px auto;
         width: 70%;
         height: fit-content;
         display: flex;
+        align-items: center;
     }
 
     .right {
         display: flex;
-        width: 100%;
+        width: fit-content;
         flex-direction: column;
         align-items: flex-start;
         padding: 25px 50px;
         gap: 20px;
-        // text-align; center;
+    }
+
+    .left {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
     }
 
     .title {
@@ -33,10 +40,7 @@ template.innerHTML = `
         font-family: arial;
     }
 
-    img {
-        width: 40vw;
-        height: 40vh;
-    }
+  
 
     .info {
         font-size: 16px;
@@ -70,14 +74,59 @@ template.innerHTML = `
         background-color: #c3c3c3;
         background-size: 100%;
     }
-
-
   
+    .image-container {
+        width: 450px; 
+        height: 450px;
+        background-color: black;
+    }
+
+    .slides {
+        width: 100%;
+        height: 100%;
+    }
+
+    .image {
+        display: block;
+        width: 100%;    
+        height: auto;
+    }
+
+    .arrow {
+        border: solid black;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 8px;
+      }
+      
+      .R {
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+      }
+
+      .L {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+      }
+
+      .arrow:active {
+        border: solid gray;
+        border-width: 0 3px 3px 0;
+      }
+ 
 
 </style>
 
 <div class="itempage">
-<div class="image"></div>
+
+<div class = "left">
+<p><i class="arrow L"></i></p>
+<div class = "image-container">
+    <div class = "slides"></div>
+</div>
+<p><i class="arrow R"></i></p>
+</div>
+
 <div class="right">
   <div class="title">
     <slot name="title">TITLE GOES HERE</slot>
@@ -105,14 +154,26 @@ class itempage extends HTMLElement {
 
     connectedCallback() {
         // Check for <img> tags inside the light DOM
-        const imageSlot = this.shadowRoot.querySelector('.image');
-        const lightImage = this.querySelector('img');
+        const imageSlot = this.shadowRoot.querySelector('.slides');
+        const lightImage = this.querySelectorAll('img');
 
-        if (lightImage) {
-            // Move the <img> tag into the shadow DOM's .image div
-            imageSlot.appendChild(lightImage);
-        }
+        lightImage.forEach(image => {
+            image.classList.add('image')
+            imageSlot.appendChild(image)
+        });
+
     }
 }
 
 window.customElements.define("item-page", itempage);
+
+
+{/* <div id= "left" class="arrow"></div>
+<div id="wrapper">
+    <div class = "image-container">
+        <div class = "slides">  <!--Detta representerar alla bilder-->
+            <!-- varje individuell bild som skapas genom js kommer hamna här -->
+        </div>
+    </div>
+</div>
+<div id= "right" class="arrow"></div> */}

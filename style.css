@@ -13,10 +13,10 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: black;
   }
 
-  li a,i {
+  li a {
     display: block;
     color: white;
     padding: 20px 100px;
@@ -25,9 +25,17 @@ ul {
     font-weight: bold;
   }
 
- li i {
+  .fa {
   position: absolute;
   right: 0;
   padding-right: 50px;
  }
+
+ ul li a:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+
+
 
