@@ -201,6 +201,9 @@ class itempage extends HTMLElement {
 
         const leftArrowButton = this.shadowRoot.querySelector('.arrow.L');
         const rightArrowButton = this.shadowRoot.querySelector('.arrow.R');
+
+
+        
         
         leftArrowButton.addEventListener('click', changeLeft);
         rightArrowButton.addEventListener('click', changeRight);
