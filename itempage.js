@@ -155,25 +155,56 @@ class itempage extends HTMLElement {
     connectedCallback() {
         // Check for <img> tags inside the light DOM
         const imageSlot = this.shadowRoot.querySelector('.slides');
-        const lightImage = this.querySelectorAll('img');
+        const images = this.querySelectorAll('img');
 
-        lightImage.forEach(image => {
+        images.forEach(image => {
             image.classList.add('image')
             imageSlot.appendChild(image)
+            image.style.display = "none";
         });
 
+
+        let currIndex = 0;
+        images[currIndex].style.display = "block";
+
+
+        function updateDisplay() {
+            images.forEach(image => {
+                image.style.display = "none";
+            });
+
+            images[currIndex].style.display = "block";
+        }
+
+        function changeLeft() {
+            currIndex--;
+        
+            if (currIndex < 0) {
+                currIndex = images.length - 1;
+            }
+        
+            updateDisplay()
+        
+        };
+        
+        function changeRight() {
+            currIndex++;
+        
+            if (currIndex >= images.length) {
+                currIndex = 0;
+            }
+        
+            updateDisplay()
+        
+        };
+
+
+        const leftArrowButton = this.shadowRoot.querySelector('.arrow.L');
+        const rightArrowButton = this.shadowRoot.querySelector('.arrow.R');
+        
+        leftArrowButton.addEventListener('click', changeLeft);
+        rightArrowButton.addEventListener('click', changeRight);
     }
 }
 
 window.customElements.define("item-page", itempage);
-
-
-{/* <div id= "left" class="arrow"></div>
-<div id="wrapper">
-    <div class = "image-container">
-        <div class = "slides">  <!--Detta representerar alla bilder-->
-            <!-- varje individuell bild som skapas genom js kommer hamna här -->
-        </div>
-    </div>
-</div>
-<div id= "right" class="arrow"></div> */}
