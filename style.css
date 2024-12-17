@@ -8,13 +8,15 @@ li {
 }
 
 ul {
-    align-items: center;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: black;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: black;
+}
 
   li a {
     display: block;
@@ -23,6 +25,13 @@ ul {
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
+  }
+
+  .logo {
+    width: 40px;
+    height: auto;
+    display: block;
+    margin: 0 10px;
   }
 
   .fa {
@@ -35,6 +44,10 @@ ul {
   opacity: 0.5;
   cursor: pointer;
 }
+
+
+
+
 
 /*Adams kommentar hallå/*
 
