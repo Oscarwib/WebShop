@@ -214,7 +214,7 @@ class itempage extends HTMLElement {
         rightArrowButton.addEventListener('click', changeRight);
 
 
-        const addToCart = this.shadowRoot.getElementById('addcart');
+        const addToCart = this.shadowRoot.querySelector('#addcart');
 
         let selectedSize = '-1';
 
@@ -231,13 +231,10 @@ class itempage extends HTMLElement {
 
             } else {
                 setTimeout(() => {
-                    alert('Item added to cart!');
-                }, 500);
-
                 const itemData = {
-                    image: images[0].src,
-                    title: title,
-                    price: title,
+                    image: images.length > 0 ? images[0].src : '', // Get the src of the first image
+                    title: this.shadowRoot.querySelector('slot[name="title"]').assignedNodes()[0].textContent.trim() || "Untitled Item", // Get the title from the title slot
+                    price: this.shadowRoot.querySelector('slot[name="price"]').assignedNodes()[0].textContent.trim().replace('$','') || "Unknown Price", // Get the price from the price slot
                     size: selectedSize
                 };
 
@@ -246,6 +243,7 @@ class itempage extends HTMLElement {
                     bubbles: true,     // Allow the event to bubble up
                     composed: true     // Allow the event to cross the shadow DOM boundary
                 }));
+            }, 500);
             }
         });
 
