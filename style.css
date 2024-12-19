@@ -7,13 +7,7 @@ li {
     /* display: inline; */
 }
 
-img {
-  width: 36px;
-  height: auto;
-  /* position: fixed;
-  left: 20px;
-  top: 0px;   */
-}
+
 
 ul {
     align-items: center;
@@ -24,7 +18,7 @@ ul {
     background-color: white;
   }
 
-  li a, img {
+  li a {
     display: block;
     color: black;
     padding: 20px 100px;
@@ -43,7 +37,5 @@ ul {
   opacity: 0.5;
   cursor: pointer;
 }
-
-
 
 
