@@ -22,11 +22,6 @@ class HomePage extends HTMLElement {
             margin: 50px;
           }
           
-          .new-releases img {
-            width: 400px;
-            height: auto;
-          }
-          
           .arrow {
             border: solid black;
             border-width: 0 3px 3px 0;
@@ -59,7 +54,7 @@ class HomePage extends HTMLElement {
         }
         
          ::slotted(img[slot="new-shoes"]) {
-             width: 400px;
+            width: 300px;
             height: auto;
         }
             
