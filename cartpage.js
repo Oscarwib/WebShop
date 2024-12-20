@@ -98,7 +98,7 @@ class ShoppingCart extends HTMLElement {
         // lyssnar efter att eventet startade i item componenten
         // bind försäkrar att rätt instans skickas med
         window.addEventListener('add-to-cart', this.handleAddToCart.bind(this));
-        
+
         const btn = this.shadowRoot.querySelector('.close');
         const cartFace = this.shadowRoot.querySelector('.cart')
 
@@ -106,10 +106,12 @@ class ShoppingCart extends HTMLElement {
         btn.addEventListener('click', () => {
             cartFace.setAttribute("aria-hidden", "true");
         });
-     
+
+        
+
     }
 
- 
+
 
     handleAddToCart(event) {
         //skapar en variabel som tar alla detaljer om produkten som vi skickade med
@@ -120,7 +122,7 @@ class ShoppingCart extends HTMLElement {
         // döljer från start
         const cartFace = this.shadowRoot.querySelector('.cart')
         cartFace.setAttribute("aria-hidden", "false");
-       
+
     }
 
     renderCart() {
