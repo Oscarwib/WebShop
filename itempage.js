@@ -129,7 +129,7 @@ class ItemPage extends HTMLElement {
         
         </style>
         
-        <div class="itempage" aria-hidden="false">
+        <div class="itempage" aria-hidden="true">
         
         <div class="left">
           <p><i class="arrow L"></i></p>

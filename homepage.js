@@ -61,7 +61,7 @@ class HomePage extends HTMLElement {
         
         </style>
         
-        <div class="homepage" aria-hidden="true">
+        <div class="homepage" aria-hidden="false">
           <slot name="header"></slot>
           <div class="new-releases">
             <div class="heading">
@@ -84,11 +84,37 @@ class HomePage extends HTMLElement {
         if (headerImg) {
             headerImg.setAttribute('slot', 'header');
         }
-    
+
         const newShoes = this.querySelectorAll('.new-shoe');
         newShoes.forEach(img => {
             img.setAttribute('slot', 'new-shoes');
+            const dataId = img.getAttribute('data-id');
+            const page = this.shadowRoot.querySelector('.homepage')
+
+            img.addEventListener('click', () => {
+                console.log(`Image with data-id ${dataId} clicked!`);
+
+                const itemPage = document.querySelector(`item-page[data-id="${dataId}"]`);
+
+                if (itemPage) {
+                    console.log('Matching item-page found:', itemPage);
+                    page.setAttribute("aria-hidden", "true")
+
+                    
+                    // document.querySelectorAll('item-page').forEach(page => {
+                    //     page.style.display = 'none';
+                    // });
+
+                    itemPage.style.display = 'block';
+
+                } else {
+                    console.log('No matching item-page found for data-id:', dataId);
+                }
+
+            })
+
         });
+
     }
 }
 

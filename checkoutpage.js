@@ -34,6 +34,11 @@ class CartPage extends HTMLElement {
             margin-right: 10px;
         }
 
+        .cart-item {
+            display: flex;
+            align-items:
+        }
+
             </style>
             <div class="checkout" aria-hidden="true">
                 <h3>Shopping Cart</h3>
@@ -79,7 +84,7 @@ class CartPage extends HTMLElement {
             itemElement.classList.add('cart-item');
             itemElement.innerHTML = `
                 <img src="${item.image}" alt="${item.title}">
-                <span>${item.title} - $${item.price} (Size: ${item.size})</span>
+                <span>${item.title}<br>$${item.price}<br>Size: ${item.size}</span>
             `;
             cartItemsContainer.appendChild(itemElement);
         });
