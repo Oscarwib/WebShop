@@ -66,7 +66,7 @@ class HomePage extends HTMLElement {
         
         </style>
         
-        <div class="homepage" aria-hidden="true">
+        <div class="homepage" aria-hidden="false">
           <slot name="header"></slot>
           <div class="new-releases">
             <div class="heading">
