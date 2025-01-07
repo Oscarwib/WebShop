@@ -96,20 +96,11 @@ class HomePage extends HTMLElement {
 
                 const itemPage = document.querySelector(`item-page[data-id="${dataId}"]`);
 
-                if (itemPage) {
-                    console.log('Matching item-page found:', itemPage);
-                    page.setAttribute("aria-hidden", "true")
+                console.log('Matching item-page found:', itemPage);
+                page.setAttribute("aria-hidden", "true")
 
-                    
-                    // document.querySelectorAll('item-page').forEach(page => {
-                    //     page.style.display = 'none';
-                    // });
-
-                    itemPage.style.display = 'block';
-
-                } else {
-                    console.log('No matching item-page found for data-id:', dataId);
-                }
+                itemPage.show();
+             
 
             })
 
