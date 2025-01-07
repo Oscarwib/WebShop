@@ -98,14 +98,19 @@ class HomePage extends HTMLElement {
 
                 if (itemPage) {
                     console.log('Matching item-page found:', itemPage);
-                    page.setAttribute("aria-hidden", "true")
+                    page.setAttribute("aria-hidden", "true");
 
                     
                     // document.querySelectorAll('item-page').forEach(page => {
                     //     page.style.display = 'none';
                     // });
 
-                    itemPage.style.display = 'block';
+                    const itemPageDiv = itemPage.shadowRoot.querySelector('.itempage'); // Inside shadow DOM
+                    if (itemPageDiv) {
+                      itemPageDiv.setAttribute('aria-hidden', 'false');
+                    } else {
+                      console.warn('itempage div not found in shadow DOM');
+                    }
 
                 } else {
                     console.log('No matching item-page found for data-id:', dataId);
