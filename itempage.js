@@ -160,6 +160,16 @@ class ItemPage extends HTMLElement {
           `;
     }
 
+    show() {
+        const itemPage = this.shadowRoot.querySelector('.itempage');
+        itemPage.setAttribute("aria-hidden", "false");
+    }
+
+    hide() {
+        const itemPage = this.shadowRoot.querySelector('.itempage');
+        itemPage.setAttribute("aria-hidden", "true");
+    }
+
     connectedCallback() {
         const imageSlot = this.shadowRoot.querySelector('.slides');
         const images = this.querySelectorAll('img');
