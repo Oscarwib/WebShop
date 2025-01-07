@@ -4,19 +4,18 @@ class ItemPage extends HTMLElement {
         this.attachShadow({ mode: "open" });
         this.shadowRoot.innerHTML = `
         <style>
-            .itempage {
-                margin: 200px auto;
-                width: 70%;
-                height: fit-content;
-                align-items: center;
-            }
-        
+
             .itempage[aria-hidden="true"] {
                 display: none;
             }
             
             .itempage[aria-hidden="false"] {
                 display: flex;
+                width: 70%;
+                height: 100%;
+                align-items: center;
+                margin: 100px auto;
+                margin-top: unset;
             }
         
             .right {

@@ -22,11 +22,6 @@ class HomePage extends HTMLElement {
             margin: 50px;
           }
           
-          .new-releases img {
-            width: 400px;
-            height: auto;
-          }
-          
           .arrow {
             border: solid black;
             border-width: 0 3px 3px 0;
@@ -59,7 +54,7 @@ class HomePage extends HTMLElement {
         }
         
          ::slotted(img[slot="new-shoes"]) {
-             width: 400px;
+            width: 300px;
             height: auto;
         }
             
@@ -89,11 +84,37 @@ class HomePage extends HTMLElement {
         if (headerImg) {
             headerImg.setAttribute('slot', 'header');
         }
-    
+
         const newShoes = this.querySelectorAll('.new-shoe');
         newShoes.forEach(img => {
             img.setAttribute('slot', 'new-shoes');
+            const dataId = img.getAttribute('data-id');
+            const page = this.shadowRoot.querySelector('.homepage')
+
+            img.addEventListener('click', () => {
+                console.log(`Image with data-id ${dataId} clicked!`);
+
+                const itemPage = document.querySelector(`item-page[data-id="${dataId}"]`);
+
+                if (itemPage) {
+                    console.log('Matching item-page found:', itemPage);
+                    page.setAttribute("aria-hidden", "true")
+
+                    
+                    // document.querySelectorAll('item-page').forEach(page => {
+                    //     page.style.display = 'none';
+                    // });
+
+                    itemPage.style.display = 'block';
+
+                } else {
+                    console.log('No matching item-page found for data-id:', dataId);
+                }
+
+            })
+
         });
+
     }
 }
 
