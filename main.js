@@ -7,6 +7,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     const pages = document.querySelectorAll('item-page');
 
+    const logo = document.querySelector('.logo');
+    logo.addEventListener('click', () => {
+        window.location.href = '/';
+    });
+
 
     item.addEventListener('click', () => {
         internalElement.setAttribute("aria-hidden", "false");
