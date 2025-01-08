@@ -1,21 +1,33 @@
 document.addEventListener("DOMContentLoaded", (event) => {
 
-    const item = document.querySelector('.fa');
+    const cart = document.querySelector('.fa');
     const myComponent = document.querySelector('cart-page');
-    const shadowRoot = myComponent.shadowRoot;
-    const internalElement = shadowRoot.querySelector('.checkout');
+    // const shadowRoot = myComponent.shadowRoot;
+    // const internalElement = shadowRoot.querySelector('.checkout');
 
     const pages = document.querySelectorAll('item-page');
 
+    const homeBtn = document.querySelector('.logo');
 
-    item.addEventListener('click', () => {
-        internalElement.setAttribute("aria-hidden", "false");
+    const home = document.querySelector('home-page');
+
+    homeBtn.addEventListener('click', () => {
+        home.show();
+        myComponent.hide();
         pages.forEach(pg => {
             pg.hide();
         })
         
-        // intr.setAttribute("aria-hidden", "true");
-        // console.log(shadowRoot)
+    })
+
+
+    cart.addEventListener('click', () => {
+        myComponent.show();
+        // internalElement.setAttribute("aria-hidden", "false");
+        pages.forEach(pg => {
+            pg.hide();
+        })
+        home.hide();
     })
 
   });

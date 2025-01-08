@@ -79,6 +79,16 @@ class HomePage extends HTMLElement {
           `;
     }
 
+    hide() {
+        const home = this.shadowRoot.querySelector('.homepage');
+        home.setAttribute("aria-hidden", "true");
+    }
+
+    show() {
+        const home = this.shadowRoot.querySelector('.homepage');
+        home.setAttribute("aria-hidden", "false");
+    }
+
     connectedCallback() {
         const headerImg = this.querySelector('img[alt="headerimg"]');
         if (headerImg) {
@@ -89,7 +99,6 @@ class HomePage extends HTMLElement {
         newShoes.forEach(img => {
             img.setAttribute('slot', 'new-shoes');
             const dataId = img.getAttribute('data-id');
-            const page = this.shadowRoot.querySelector('.homepage')
 
             img.addEventListener('click', () => {
                 console.log(`Image with data-id ${dataId} clicked!`);
@@ -97,7 +106,7 @@ class HomePage extends HTMLElement {
                 const itemPage = document.querySelector(`item-page[data-id="${dataId}"]`);
 
                 console.log('Matching item-page found:', itemPage);
-                page.setAttribute("aria-hidden", "true")
+                this.hide();
 
                 itemPage.show();
              

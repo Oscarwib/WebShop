@@ -48,14 +48,19 @@ class CartPage extends HTMLElement {
         `;
     }
 
-    connectedCallback() {
-       
-        window.addEventListener('add-to-cart', this.addedToCart.bind(this));
 
-
+    show() {
+        const view = this.shadowRoot.querySelector('.checkout');
+        view.setAttribute("aria-hidden", "false");
+    }
+    hide() {
+        const view = this.shadowRoot.querySelector('.checkout');
+        view.setAttribute("aria-hidden", "true");
     }
 
-
+    connectedCallback() { 
+        window.addEventListener('add-to-cart', this.addedToCart.bind(this));
+    }
 
     addedToCart(event) {
         //skapar en variabel som tar alla detaljer om produkten som vi skickade med
@@ -64,7 +69,7 @@ class CartPage extends HTMLElement {
         console.log('Item added to cart:', itemData);
         this.updateCart(); //updaterar cart utseendet varje gång eventet plockas upp
         // döljer från start
-        const cartFace = this.shadowRoot.querySelector('.cart')
+        const cartFace = this.shadowRoot.querySelector('.checkout')
         cartFace.setAttribute("aria-hidden", "false");
 
     }
