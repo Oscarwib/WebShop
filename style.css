@@ -32,6 +32,7 @@ ul {
     height: auto;
     display: block;
     margin: 0 10px;
+    cursor: pointer;
   }
 
   .fa {
@@ -45,6 +46,3 @@ ul {
   cursor: pointer;
 }
 
-.logo {
-  cursor: pointer;
-}
