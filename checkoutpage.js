@@ -15,6 +15,29 @@ class CartPage extends HTMLElement {
                 flex-direction: column;
                 border: 1px solid black;
             }
+
+            .emptythecart {
+                cursor: pointer;
+                color: white;
+                font-weight: bold;
+                font-family: Arial, Helvetica, sans-serif;
+                margin-top: 10px;
+                text-align: center;
+                background-color: red;
+                padding: 10px 20px;
+                border: 2px solid darkred;
+                border-radius: 10px;
+                display: inline-block;
+                transition: background-color 0.3s ease, transform 0.2s ease;
+            }
+
+            .emptythecart:hover {
+                background-color: darkred;
+            }
+
+            .emptythecart:active {
+                background-color: crimson;
+            }
         
             .checkout[aria-hidden="true"] {
                 display: none;
@@ -44,6 +67,7 @@ class CartPage extends HTMLElement {
                 <h3>Shopping Cart</h3>
                 <div id="cart-items"></div>
                 <p class="cart-total">Total: $0</p>
+                <p id="empty-the-cart" class="emptythecart">Empty the cart</p>
             </div>
         `;
     }
@@ -60,6 +84,14 @@ class CartPage extends HTMLElement {
 
     connectedCallback() { 
         window.addEventListener('add-to-cart', this.addedToCart.bind(this));
+
+        const emptyCartButton = this.shadowRoot.querySelector('#empty-the-cart');
+        emptyCartButton.addEventListener('click', this.emptyCart.bind(this));
+        
+        drop.addEventListener('change', (event) => {
+            selectedSize = event.target.value;
+    });
+
     }
 
     addedToCart(event) {
@@ -97,6 +129,18 @@ class CartPage extends HTMLElement {
         // Update the total price
         cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
     }
+
+    emptyCart() {
+        // Clear the cart items array
+        this.cartItems = [];
+        
+        // Update the cart UI
+        this.updateCart();
+
+        console.log('Cart has been emptied.');
+    }
+
+    
 }
 
 // Define the custom shopping cart element
