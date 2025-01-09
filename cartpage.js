@@ -102,6 +102,8 @@ class ShoppingCart extends HTMLElement {
         // bind försäkrar att rätt instans skickas med
         window.addEventListener('add-to-cart', this.handleAddToCart.bind(this));
 
+        window.addEventListener('empty-cart', this.handleEmptyCart.bind(this));
+
         const btn = this.shadowRoot.querySelector('.close');
         const cartFace = this.shadowRoot.querySelector('.cart')
 
@@ -122,6 +124,12 @@ class ShoppingCart extends HTMLElement {
         const cartFace = this.shadowRoot.querySelector('.cart')
         cartFace.setAttribute("aria-hidden", "false");
 
+    }
+
+    handleEmptyCart() {
+        this.cartItems = [];
+        console.log('Cart emptied');
+        this.renderCart();
     }
 
     renderCart() {

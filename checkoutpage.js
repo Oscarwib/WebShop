@@ -137,7 +137,8 @@ class CartPage extends HTMLElement {
         // Update the cart UI
         this.updateCart();
 
-        console.log('Cart has been emptied.');
+        const event = new CustomEvent('empty-cart', { bubbles: true, composed: true });
+        window.dispatchEvent(event);
     }
 
     
