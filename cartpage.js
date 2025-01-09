@@ -94,6 +94,9 @@ class ShoppingCart extends HTMLElement {
         `;
     }
 
+
+ 
+
     connectedCallback() {
         // lyssnar efter att eventet startade i item componenten
         // bind försäkrar att rätt instans skickas med
@@ -106,11 +109,7 @@ class ShoppingCart extends HTMLElement {
         btn.addEventListener('click', () => {
             cartFace.setAttribute("aria-hidden", "true");
         });
-
-        
-
     }
-
 
 
     handleAddToCart(event) {

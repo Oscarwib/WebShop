@@ -7,7 +7,13 @@ li {
     /* display: inline; */
 }
 
-
+.logo {
+  width: 40px;
+  height: auto;
+  position: absolute;
+  left: 20px;
+  padding: unset;
+}
 
 ul {
     align-items: center;
