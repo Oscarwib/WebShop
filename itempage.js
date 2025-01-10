@@ -236,16 +236,17 @@ class ItemPage extends HTMLElement {
             } else {
                 setTimeout(() => {
                 const itemData = {
-                    image: images.length > 0 ? images[0].src : '', // Get the src of the first image
-                    title: this.shadowRoot.querySelector('slot[name="title"]').assignedNodes()[0].textContent.trim() || "Untitled Item", // Get the title from the title slot
-                    price: this.shadowRoot.querySelector('slot[name="price"]').assignedNodes()[0].textContent.trim().replace('$','') || "Unknown Price", // Get the price from the price slot
+                    image: images.length > 0 ? images[0].src : '', // Get the src of the first image, skickar vidare till korgarna
+                    title: this.shadowRoot.querySelector('slot[name="title"]').assignedNodes()[0].textContent.trim() || "Untitled Item", // Get the title from the title slot, det sista visas om inget hittas i modem
+                    price: this.shadowRoot.querySelector('slot[name="price"]').assignedNodes()[0].textContent.trim().replace('$','') || "Unknown Price", // Get the price from the price slot, tar bort dollar tecknet för att räkna ut totalpris enklare
                     size: selectedSize
                 };
-
+                // skapar eventet som sedan bubblar upp genom shadow DOM med infon om produkten som sedan fångas av quickview och varukorgen
                 this.dispatchEvent(new CustomEvent('add-to-cart', {
                     detail: itemData, // Pass item data with the event
                     bubbles: true,     // Allow the event to bubble up
-                    composed: true     // Allow the event to cross the shadow DOM boundary
+                    // nedanstående kanske inte är nödvändig
+                    // composed: false     // Allow the event to cross the shadow DOM boundary
                 }));
             }, 500);
             }

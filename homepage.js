@@ -93,23 +93,26 @@ class HomePage extends HTMLElement {
   connectedCallback() {
       const headerImg = this.querySelector('img[alt="headerimg"]');
       if (headerImg) {
-          headerImg.setAttribute('slot', 'header');
+          headerImg.setAttribute('slot', 'header'); //sätter in bilden i rätt slot
       }
 
-      const newShoes = this.querySelectorAll('.new-shoe');
+      const newShoes = this.querySelectorAll('.new-shoe'); // hämtae alla bilden från html filen med klass new-shoe
+
       newShoes.forEach(img => {
+        // för varje bilde som är new shoe sätter vi dem i rätt slot samt hämtar deras data-id attribut
           img.setAttribute('slot', 'new-shoes');
           const dataId = img.getAttribute('data-id');
 
           img.addEventListener('click', () => {
-              console.log(`Image with data-id ${dataId} clicked!`);
+            // i varje bild lägger vi ett event som gör att vi hamnar på item page somm tillhör 
+              console.log(`Image with data-id ${dataId} clicked!`); //loggar den itemen vi klickar på
 
-              const itemPage = document.querySelector(`item-page[data-id="${dataId}"]`);
+              const itemPage = document.querySelector(`item-page[data-id="${dataId}"]`); //hämtar den itempage vi har klickat på(matchar data-idt)
 
               console.log('Matching item-page found:', itemPage);
-              this.hide();
+              this.hide();//gömmer homepage
 
-              itemPage.show();
+              itemPage.show();//visar den itempagen vi klickade på
            
 
           })
