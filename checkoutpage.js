@@ -88,9 +88,9 @@ class CartPage extends HTMLElement {
         const emptyCartButton = this.shadowRoot.querySelector('#empty-the-cart');
         emptyCartButton.addEventListener('click', this.emptyCart.bind(this));
         
-        drop.addEventListener('change', (event) => {
-            selectedSize = event.target.value;
-    });
+    //     drop.addEventListener('change', (event) => {
+    //         selectedSize = event.target.value;
+    // });
 
     }
 
@@ -98,11 +98,13 @@ class CartPage extends HTMLElement {
         //skapar en variabel som tar alla detaljer om produkten som vi skickade med
         const itemData = event.detail;
         this.cartItems.push(itemData); // lägger till dessa i arrayen cartitems
-        console.log('Item added to cart:', itemData);
+        console.log('Item added to cart:', itemData); //loggar i konsolen
         this.updateCart(); //updaterar cart utseendet varje gång eventet plockas upp
-        // döljer från start
-        const cartFace = this.shadowRoot.querySelector('.checkout')
-        cartFace.setAttribute("aria-hidden", "false");
+
+
+        // döljer från start, kan tas bort minns ej vad de gör
+        //const cartFace = this.shadowRoot.querySelector('.checkout')
+        // cartFace.setAttribute("aria-hidden", "false");
 
     }
 

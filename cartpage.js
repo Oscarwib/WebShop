@@ -126,6 +126,7 @@ class ShoppingCart extends HTMLElement {
 
     }
 
+    //tanken är rätt men vi måste radera den 
     handleEmptyCart() {
         this.cartItems = [];
         console.log('Cart emptied');
