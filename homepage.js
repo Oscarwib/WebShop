@@ -55,7 +55,8 @@ class HomePage extends HTMLElement {
       
        ::slotted(img[slot="new-shoes"]) {
           width: 300px;
-          height: auto;
+          height: 300px;
+          object-fit: cover;
       }
           
       

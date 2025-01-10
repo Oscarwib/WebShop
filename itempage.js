@@ -83,7 +83,7 @@ class ItemPage extends HTMLElement {
             }
           
             .image-container {
-                width: 480px; 
+                width: 600px; 
                 height: 600px;
                 background-color: black;
             }
