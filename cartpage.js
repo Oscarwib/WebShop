@@ -108,6 +108,8 @@ class ShoppingCart extends HTMLElement {
 
         window.addEventListener('empty-cart', this.handleEmptyCart.bind(this));
 
+        window.addEventListener('removeItem', this.handleRemoved.bind(this));
+
         const btn = this.shadowRoot.querySelector('.close');
         const cartFace = this.shadowRoot.querySelector('.cart')
 
@@ -117,6 +119,12 @@ class ShoppingCart extends HTMLElement {
         });
     }
 
+    handleRemoved(event) {
+        //plockar upp det event som skapav när man klickar remove, logiken är exakt likadan som i checkoutpage
+        const itemIndex = event.detail.index;
+        this.cartItems.splice(itemIndex, 1)
+        this.renderCart();
+    }
 
     handleAddToCart(event) {
         //skapar en variabel som tar alla detaljer om produkten som vi skickade med

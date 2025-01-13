@@ -141,15 +141,24 @@ class CartPage extends HTMLElement {
 
             const removeBtn = itemElement.querySelector('.remove-btn');
             removeBtn.addEventListener('click', () => {
-                console.log('bonk');
-                this.cartItems.splice(index,1); //i varje eventlistener för varje remove knapp så raderas hela det itemet som finns på indexet för detta varv i loopen(sig själv)
+
+
+                //skapar ett nytt event när man klickar remove som skickar med indexet för den sko man har klickat remove på
+                this.dispatchEvent(new CustomEvent('removeItem', {
+                    //indexet för detta varv i for loopen som blir den sko vi klickar på
+                    detail: { index: index },
+                    bubbles: true,
+                }));
+
+
+                this.cartItems.splice(index, 1); //i varje eventlistener för varje remove knapp så raderas hela det itemet som finns på indexet för detta varv i loopen(sig själv)
                 this.updateCart();//uppdaterar carten efter att vi tagit bort det elemntet från arrayen
-                
+
             });
 
         });
 
-       
+
 
         // Update the total price
         cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
