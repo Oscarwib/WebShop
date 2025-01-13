@@ -52,7 +52,7 @@ class CartPage extends HTMLElement {
            }
 
            .cart-item img {
-            width: 50px;
+            width: 100px;
             height: auto;
             margin-right: 10px;
         }
@@ -60,6 +60,18 @@ class CartPage extends HTMLElement {
         .cart-item {
             display: flex;
             align-items:
+        }
+
+        .remove-btn {
+            all: unset;
+            display: block;
+            font-family: Arial, Helvetica, sans-serif;
+            text-decoration: underline; 
+        }
+
+        .remove-btn:hover {
+            color: gray;
+            cursor: pointer;
         }
 
             </style>
@@ -82,15 +94,15 @@ class CartPage extends HTMLElement {
         view.setAttribute("aria-hidden", "true");
     }
 
-    connectedCallback() { 
+    connectedCallback() {
         window.addEventListener('add-to-cart', this.addedToCart.bind(this));
 
         const emptyCartButton = this.shadowRoot.querySelector('#empty-the-cart');
         emptyCartButton.addEventListener('click', this.emptyCart.bind(this));
-        
-    //     drop.addEventListener('change', (event) => {
-    //         selectedSize = event.target.value;
-    // });
+
+        //     drop.addEventListener('change', (event) => {
+        //         selectedSize = event.target.value;
+        // });
 
     }
 
@@ -117,16 +129,36 @@ class CartPage extends HTMLElement {
 
         // Render each item
         let total = 0;
-        this.cartItems.forEach(item => {
+        this.cartItems.forEach((item, index) => { //lade till index på varje elemnt i loopen
             total += parseFloat(item.price); // Calculate total price
             const itemElement = document.createElement('div');
             itemElement.classList.add('cart-item');
             itemElement.innerHTML = `
                 <img src="${item.image}" alt="${item.title}">
-                <span>${item.title}<br>$${item.price}<br>Size: ${item.size}</span>
+                <span>${item.title}<br>$${item.price}<br>Size: ${item.size} <button class="remove-btn">remove</button></span>
             `;
             cartItemsContainer.appendChild(itemElement);
+
+            const removeBtn = itemElement.querySelector('.remove-btn');
+            removeBtn.addEventListener('click', () => {
+
+
+                //skapar ett nytt event när man klickar remove som skickar med indexet för den sko man har klickat remove på
+                this.dispatchEvent(new CustomEvent('removeItem', {
+                    //indexet för detta varv i for loopen som blir den sko vi klickar på
+                    detail: { index: index },
+                    bubbles: true,
+                }));
+
+
+                this.cartItems.splice(index, 1); //i varje eventlistener för varje remove knapp så raderas hela det itemet som finns på indexet för detta varv i loopen(sig själv)
+                this.updateCart();//uppdaterar carten efter att vi tagit bort det elemntet från arrayen
+
+            });
+
         });
+
+
 
         // Update the total price
         cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
@@ -135,7 +167,7 @@ class CartPage extends HTMLElement {
     emptyCart() {
         // Clear the cart items array
         this.cartItems = [];
-        
+
         // Update the cart UI
         this.updateCart();
 
@@ -143,7 +175,7 @@ class CartPage extends HTMLElement {
         window.dispatchEvent(event);
     }
 
-    
+
 }
 
 // Define the custom shopping cart element

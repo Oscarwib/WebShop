@@ -9,7 +9,10 @@ class HomePage extends HTMLElement {
       .homepage[aria-hidden="false"] {
           display: flex;
           flex-direction: column;
-          height: 100%;
+          width: 100%;
+          height: auto;
+          min-height: 100vh;
+          overflow-y: auto;
       }
       
       .homepage[aria-hidden="true"] {
@@ -17,46 +20,70 @@ class HomePage extends HTMLElement {
       }
 
       .new-releases {
-          font-size: 24px;
-          font-family: Arial, Helvetica, sans-serif;
-          margin: 50px;
-        }
-        
-        .arrow {
-          border: solid black;
-          border-width: 0 3px 3px 0;
-          display: inline-block;
-          padding: 8px;
-        }
-        
-        .R {
+        display:flex;
+        flex-direction: column;
+        font-size: 24px;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 50px;
+      }
+
+      .new-releases slot[name="new-shoes"]::slotted(*) {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+      }
+
+      .new-releases .thumbnails {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 50px;
+      }
+
+      .arrows {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+      }
+
+      .arrow {
+        pointer-events: auto;
+        border: solid black;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 8px;
+        cursor: pointer;
+      }
+              
+      .R {
         transform: rotate(-45deg);
         -webkit-transform: rotate(-45deg);
-        }
+      }
         
-        .L {
+      .L {
         transform: rotate(135deg);
         -webkit-transform: rotate(135deg);
-        }
+      }
         
-        .heading {
-          display: flex;
-          justify-content: space-between;
-        }
+      .arrow:active {
+        border: solid gray;
+        border-width: 0 3px 3px 0;
+      }
         
-        .arrows {
-          display: flex;
-        }
+      .heading {
+        display: flex;
+        justify-content: space-between;
+      }
+        
       
-        ::slotted(img[slot="header"]) {
-          width: 100%;
-          height: auto;
+      ::slotted(img[slot="header"]) {
+        width: 100%;
+        height: auto;
       }
       
-       ::slotted(img[slot="new-shoes"]) {
-          width: 300px;
-          height: 300px;
-          object-fit: cover;
+      ::slotted(img[slot="new-shoes"]) {
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
       }
           
       
@@ -72,7 +99,8 @@ class HomePage extends HTMLElement {
               <p><i class="arrow R"></i></p>
             </div>
           </div>
-          <slot name="new-shoes"></slot>
+          <div class="thumbnails">
+            <slot name="new-shoes"></slot>
         </div>
       </div>
       
@@ -91,6 +119,25 @@ class HomePage extends HTMLElement {
   }
 
   connectedCallback() {
+      const thumbnailsContainer = this.shadowRoot.querySelector('.thumbnails');
+      const arrowLeft = this.shadowRoot.querySelector('.L');
+      const arrowRight = this.shadowRoot.querySelector('.R');
+      const scrollDistance = 350;
+
+      arrowLeft.addEventListener('click', () => {
+        thumbnailsContainer.scrollBy({
+            left: -scrollDistance,
+            behavior: 'smooth',
+        });
+      });
+
+      arrowRight.addEventListener('click', () => {
+        thumbnailsContainer.scrollBy({
+            left: scrollDistance,
+            behavior: 'smooth',
+        });
+      });
+
       const headerImg = this.querySelector('img[alt="headerimg"]');
       if (headerImg) {
           headerImg.setAttribute('slot', 'header'); //sätter in bilden i rätt slot

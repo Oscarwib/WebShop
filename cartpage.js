@@ -31,6 +31,8 @@ class ShoppingCart extends HTMLElement {
                     height: auto;
                     margin-right: 10px;
                 }
+
+
                 .cart-total {
                     font-weight: bold;
                     margin-top: 10px;
@@ -72,6 +74,8 @@ class ShoppingCart extends HTMLElement {
 
                 h3 {
                     margin: 0;
+                    font-family: Arial, Helvetica, sans-serif;
+
                 }
 
                 .toprow {
@@ -104,6 +108,8 @@ class ShoppingCart extends HTMLElement {
 
         window.addEventListener('empty-cart', this.handleEmptyCart.bind(this));
 
+        window.addEventListener('removeItem', this.handleRemoved.bind(this));
+
         const btn = this.shadowRoot.querySelector('.close');
         const cartFace = this.shadowRoot.querySelector('.cart')
 
@@ -113,6 +119,12 @@ class ShoppingCart extends HTMLElement {
         });
     }
 
+    handleRemoved(event) {
+        //plockar upp det event som skapav när man klickar remove, logiken är exakt likadan som i checkoutpage
+        const itemIndex = event.detail.index;
+        this.cartItems.splice(itemIndex, 1)
+        this.renderCart();
+    }
 
     handleAddToCart(event) {
         //skapar en variabel som tar alla detaljer om produkten som vi skickade med
@@ -148,7 +160,7 @@ class ShoppingCart extends HTMLElement {
             itemElement.classList.add('cart-item');
             itemElement.innerHTML = `
                 <img src="${item.image}" alt="${item.title}">
-                <span>${item.title} - $${item.price} (Size: ${item.size})</span>
+                <span>${item.title} <br>$${item.price} <br>Size: ${item.size}</span>
             `;
             cartItemsContainer.appendChild(itemElement);
         });
