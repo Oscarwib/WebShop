@@ -84,7 +84,7 @@ class ItemPage extends HTMLElement {
           
             .image-container {
                 width: 600px; 
-                height: auto;
+                height: 600px;
                 background-color: black;
             }
         
@@ -104,6 +104,7 @@ class ItemPage extends HTMLElement {
                 border-width: 0 3px 3px 0;
                 display: inline-block;
                 padding: 8px;
+                cursor: pointer;
               }
               
             .R {
