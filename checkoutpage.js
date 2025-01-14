@@ -7,14 +7,6 @@ class CartPage extends HTMLElement {
         // Initial HTML structure for the cart
         this.shadowRoot.innerHTML = `
             <style>
-
-            .checkout-container {
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-                align-items: center;
-            }
-
             .checkout {
                 margin: 200px auto;
                 width: 60%;
@@ -83,14 +75,11 @@ class CartPage extends HTMLElement {
         }
 
             </style>
-
-            <div class="checkout-container">
-                <div class="checkout" aria-hidden="true">
-                    <h3>Shopping Cart</h3>
-                    <div id="cart-items"></div>
-                    <p class="cart-total">Total: $0</p>
-                    <p id="empty-the-cart" class="emptythecart">Empty the cart</p>
-                </div>
+            <div class="checkout" aria-hidden="true">
+                <h3>Shopping Cart</h3>
+                <div id="cart-items"></div>
+                <p class="cart-total">Total: $0</p>
+                <p id="empty-the-cart" class="emptythecart">Empty the cart</p>
             </div>
         `;
     }
