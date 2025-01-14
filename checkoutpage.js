@@ -7,6 +7,15 @@ class CartPage extends HTMLElement {
         // Initial HTML structure for the cart
         this.shadowRoot.innerHTML = `
             <style>
+            
+            .checkout-container{
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+                align-items: center;
+            }
+
+
             .checkout {
                 margin: 200px auto;
                 width: 60%;
@@ -39,11 +48,11 @@ class CartPage extends HTMLElement {
                 background-color: crimson;
             }
         
-            .checkout[aria-hidden="true"] {
+            .checkout-container[aria-hidden="true"] {
                 display: none;
             }
             
-            .checkout[aria-hidden="false"] {
+            .checkout-container[aria-hidden="false"] {
                 display: flex;
             }
                 
@@ -75,22 +84,24 @@ class CartPage extends HTMLElement {
         }
 
             </style>
-            <div class="checkout" aria-hidden="true">
-                <h3>Shopping Cart</h3>
-                <div id="cart-items"></div>
-                <p class="cart-total">Total: $0</p>
-                <p id="empty-the-cart" class="emptythecart">Empty the cart</p>
+            <div class="checkout-container" aria-hidden="true">
+                <div class="checkout">
+                    <h3>Shopping Cart</h3>
+                    <div id="cart-items"></div>
+                    <p class="cart-total">Total: $0</p>
+                    <p id="empty-the-cart" class="emptythecart">Empty the cart</p>
+                </div>
             </div>
         `;
     }
 
 
     show() {
-        const view = this.shadowRoot.querySelector('.checkout');
+        const view = this.shadowRoot.querySelector('.checkout-container');
         view.setAttribute("aria-hidden", "false");
     }
     hide() {
-        const view = this.shadowRoot.querySelector('.checkout');
+        const view = this.shadowRoot.querySelector('.checkout-container');
         view.setAttribute("aria-hidden", "true");
     }
 
