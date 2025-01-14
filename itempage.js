@@ -83,20 +83,19 @@ class ItemPage extends HTMLElement {
             }
           
             .image-container {
-                width: 600px; 
+                display: flex;
+                width: 500px; 
                 height: 600px;
                 background-color: black;
             }
         
-            .slides {
-                width: 100%;
-                height: 100%;
-            }
+         
         
             .image {
-                display: block;
-                width: 100%;    
-                height: auto;
+                width: 100%;
+                height: 100%;
+                object-fit: cover; /* Ensures the image covers the container without distortion */
+              
             }
         
             .arrow {
@@ -134,9 +133,7 @@ class ItemPage extends HTMLElement {
         
         <div class="left">
           <p><i class="arrow L"></i></p>
-          <div class="image-container">
-            <div class="slides"></div>
-          </div>
+          <div class="image-container"></div>
           <p><i class="arrow R"></i></p>
         </div>
         
@@ -172,10 +169,10 @@ class ItemPage extends HTMLElement {
     }
 
     connectedCallback() {
-        const imageSlot = this.shadowRoot.querySelector('.slides');
         const images = this.querySelectorAll('img');
         const sizes = this.querySelectorAll('option')
         const drop = this.shadowRoot.getElementById('options')
+        const container = this.shadowRoot.querySelector('.image-container');
 
         sizes.forEach(size => {
             drop.appendChild(size);
@@ -183,7 +180,7 @@ class ItemPage extends HTMLElement {
 
         images.forEach(image => {
             image.classList.add('image')
-            imageSlot.appendChild(image)
+            container.appendChild(image);
             image.style.display = "none";
         });
 
@@ -204,7 +201,7 @@ class ItemPage extends HTMLElement {
             }
             updateDisplay()
         };
-        
+
         function changeRight() {
             currIndex++;
             if (currIndex >= images.length) {
@@ -236,20 +233,20 @@ class ItemPage extends HTMLElement {
 
             } else {
                 setTimeout(() => {
-                const itemData = {
-                    image: images.length > 0 ? images[0].src : '', // Get the src of the first image, skickar vidare till korgarna
-                    title: this.shadowRoot.querySelector('slot[name="title"]').assignedNodes()[0].textContent.trim() || "Untitled Item", // Get the title from the title slot, det sista visas om inget hittas i modem
-                    price: this.shadowRoot.querySelector('slot[name="price"]').assignedNodes()[0].textContent.trim().replace('$','') || "Unknown Price", // Get the price from the price slot, tar bort dollar tecknet för att räkna ut totalpris enklare
-                    size: selectedSize
-                };
-                // skapar eventet som sedan bubblar upp genom shadow DOM med infon om produkten som sedan fångas av quickview och varukorgen
-                this.dispatchEvent(new CustomEvent('add-to-cart', {
-                    detail: itemData, // Pass item data with the event
-                    bubbles: true,     // Allow the event to bubble up
-                    // nedanstående kanske inte är nödvändig
-                    // composed: false     // Allow the event to cross the shadow DOM boundary
-                }));
-            }, 500);
+                    const itemData = {
+                        image: images.length > 0 ? images[0].src : '', // Get the src of the first image, skickar vidare till korgarna
+                        title: this.shadowRoot.querySelector('slot[name="title"]').assignedNodes()[0].textContent.trim() || "Untitled Item", // Get the title from the title slot, det sista visas om inget hittas i modem
+                        price: this.shadowRoot.querySelector('slot[name="price"]').assignedNodes()[0].textContent.trim().replace('$', '') || "Unknown Price", // Get the price from the price slot, tar bort dollar tecknet för att räkna ut totalpris enklare
+                        size: selectedSize
+                    };
+                    // skapar eventet som sedan bubblar upp genom shadow DOM med infon om produkten som sedan fångas av quickview och varukorgen
+                    this.dispatchEvent(new CustomEvent('add-to-cart', {
+                        detail: itemData, // Pass item data with the event
+                        bubbles: true,     // Allow the event to bubble up
+                        // nedanstående kanske inte är nödvändig
+                        // composed: false     // Allow the event to cross the shadow DOM boundary
+                    }));
+                }, 500);
             }
         });
 
