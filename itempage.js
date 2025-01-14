@@ -16,6 +16,7 @@ class ItemPage extends HTMLElement {
                 align-items: center;
                 margin: 100px auto;
                 margin-top: unset;
+                min-height: 100vh;
             }
         
             .right {
