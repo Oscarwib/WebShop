@@ -1,9 +1,16 @@
 body {
-  height: 2000px;
+  height: 100%;
 }
 
 .wrapper {
   height: 100%;
+}
+
+.footer {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  
 }
 
 li {
