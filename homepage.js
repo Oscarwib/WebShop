@@ -88,23 +88,88 @@ class HomePage extends HTMLElement {
       }
           
       
+
+      ::slotted(img) {
+        width: 400px;
+        height: auto;
+      }
+      
+      .row {
+        height: 500px;
+        margin: 10vmin 25vmin 0;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+      }
+
+      .text-container {
+        display: flex;
+        flex-direction: column;
+        // justify-content: center; 
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 30px;
+        gap: 10px;
+      }
+      
+      .titlecon {
+        font-size: 60px;
+        font-weight: bold;
+      }
+
+      .paracon {
+        font-size: 20px;
+        line-height: 1.3; 
+      }
+
+      #row2 {
+        flex-direction: row;
+      }
+
+    
+
       </style>
       
-      <div class="homepage" aria-hidden="false">
-        <slot name="header"></slot>
-        <div class="new-releases">
-          <div class="heading">
-            <p>New releases</p>
-            <div class="arrows">
-              <p><i class="arrow L"></i></p>
-              <p><i class="arrow R"></i></p>
-            </div>
+    <div class="homepage" aria-hidden="false">
+      <slot name="header"></slot>
+      <div class="new-releases">
+        <div class="heading">
+          <p>New releases</p>
+          <div class="arrows">
+            <p><i class="arrow L"></i></p>
+            <p><i class="arrow R"></i></p>
           </div>
-          <div class="thumbnails">
-            <slot name="new-shoes"></slot>
+        </div>
+        <div class="thumbnails">
+          <slot name="new-shoes"></slot>
         </div>
       </div>
-      
+      <div class="row" id="row1">
+        <div class="image-container">
+          <slot name="images"></slot> <!-- Slot for images -->
+        </div>
+        <div class="text-container">
+          <div class="titlecon">
+            <slot name="title"></slot>
+          </div>
+          <div class="paracon">
+            <slot name="paragraph"></slot>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="row2">
+      <div class="image-container">
+        <slot name="images2"></slot> <!-- Slot for images -->
+      </div>
+      <div class="text-container">
+        <div class="titlecon">
+          <slot name="title2"></slot>
+        </div>
+        <div class="paracon">
+          <slot name="paragraph2"></slot>
+        </div>
+      </div>
+    </div>
+    </div>
       
         `;
   }

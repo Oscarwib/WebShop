@@ -1,5 +1,9 @@
+body {
+  height: 2000px;
+}
+
 .wrapper {
-  height: 100vh;
+  height: 100%;
 }
 
 li {
@@ -17,12 +21,16 @@ margin-top: -10px;
 }
 /*header background */
 ul {
+  position: sticky;
+  z-index: 1000;
+  top: 0;
   align-items: center;
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: white;
+
 }
 /*men,women,activity */
 li a {
