@@ -146,7 +146,17 @@ class CartPage extends HTMLElement {
             itemElement.classList.add('cart-item');
             itemElement.innerHTML = `
                 <img src="${item.image}" alt="${item.title}">
-                <span>${item.title}<br>$${item.price}<br>Size: ${item.size} <button class="remove-btn">remove</button></span>
+                <span>
+                    ${item.title}<br>
+                    $${item.price}<br>
+                    Size: 
+                    <select class="size-dropdown">
+                        ${['40', '41', '42', '43', '44', '45'].map(size => `
+                            <option value="${size}" ${size === item.size ? 'selected' : ''}>${size}</option>
+                        `).join('')}
+                    </select>
+                    <button class="remove-btn">remove</button>
+                </span>
             `;
             cartItemsContainer.appendChild(itemElement);
 
@@ -165,6 +175,14 @@ class CartPage extends HTMLElement {
                 this.cartItems.splice(index, 1); //i varje eventlistener för varje remove knapp så raderas hela det itemet som finns på indexet för detta varv i loopen(sig själv)
                 this.updateCart();//uppdaterar carten efter att vi tagit bort det elemntet från arrayen
 
+            });
+
+            // size change dropdown
+            const sizeDropdown = itemElement.querySelector('.size-dropdown');
+            sizeDropdown.addEventListener('change', (event) => {
+                const newSize = event.target.value;
+                this.cartItems[index].size = newSize; // update shoesize
+                console.log(`Item size updated to: ${newSize}`); // log update
             });
 
         });
