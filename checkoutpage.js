@@ -2,9 +2,8 @@ class CartPage extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
-        this.cartItems = []; // Internal state for cart items
+        this.cartItems = [];
 
-        // Initial HTML structure for the cart
         this.shadowRoot.innerHTML = `
             <style>
             
@@ -126,11 +125,6 @@ class CartPage extends HTMLElement {
         console.log('Item added to cart:', itemData); //loggar i konsolen
         this.updateCart(); //updaterar cart utseendet varje gång eventet plockas upp
 
-
-        // döljer från start, kan tas bort minns ej vad de gör
-        //const cartFace = this.shadowRoot.querySelector('.checkout')
-        // cartFace.setAttribute("aria-hidden", "false");
-
     }
 
     updateCart() {
@@ -140,10 +134,10 @@ class CartPage extends HTMLElement {
         // Nollställer innehållet i divven för att vi inte ska lägga till det som redan finns eftersom vi ritar allt i arrayen varje gång vi clickar
         cartItemsContainer.innerHTML = '';
 
-        // Render each item
+        // render each item
         let total = 0;
         this.cartItems.forEach((item, index) => { //lade till index på varje elemnt i loopen
-            total += parseFloat(item.price); // Calculate total price
+            total += parseFloat(item.price); // calculate total price
             const itemElement = document.createElement('div');
             itemElement.classList.add('cart-item');
             itemElement.innerHTML = `
@@ -191,15 +185,14 @@ class CartPage extends HTMLElement {
 
 
 
-        // Update the total price
+        // total price update
         cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
     }
 
     emptyCart() {
-        // Clear the cart items array
+        // empty array
         this.cartItems = [];
 
-        // Update the cart UI
         this.updateCart();
 
         const event = new CustomEvent('empty-cart', { bubbles: true, composed: true });
@@ -209,5 +202,5 @@ class CartPage extends HTMLElement {
 
 }
 
-// Define the custom shopping cart element
+// define shopping cart element
 customElements.define('cart-page', CartPage);

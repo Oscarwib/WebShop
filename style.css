@@ -6,6 +6,7 @@ body {
   height: 100%;
 }
 
+/*the footer at the bottom of the page*/
 .footer {
   height: 100%;
   display: flex;

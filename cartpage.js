@@ -2,9 +2,8 @@ class ShoppingCart extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
-        this.cartItems = []; // Internal state for cart items
+        this.cartItems = [];
 
-        // Initial HTML structure for the cart
         this.shadowRoot.innerHTML = `
             <style>
                 .cart[aria-hidden = "true"] {
@@ -152,10 +151,10 @@ class ShoppingCart extends HTMLElement {
         // Nollställer innehållet i divven för att vi inte ska lägga till det som redan finns eftersom vi ritar allt i arrayen varje gång vi clickar
         cartItemsContainer.innerHTML = '';
 
-        // Render each item
+        // render each item
         let total = 0;
         this.cartItems.forEach(item => {
-            total += parseFloat(item.price); // Calculate total price
+            total += parseFloat(item.price); // calculate total price
             const itemElement = document.createElement('div');
             itemElement.classList.add('cart-item');
             itemElement.innerHTML = `
@@ -165,10 +164,10 @@ class ShoppingCart extends HTMLElement {
             cartItemsContainer.appendChild(itemElement);
         });
 
-        // Update the total price
+        // update total price
         cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
     }
 }
 
-// Define the custom shopping cart element
+// shopping cart element
 customElements.define('shopping-cart', ShoppingCart);

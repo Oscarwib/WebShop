@@ -242,8 +242,8 @@ class ItemPage extends HTMLElement {
                     };
                     // skapar eventet som sedan bubblar upp genom shadow DOM med infon om produkten som sedan fångas av quickview och varukorgen
                     this.dispatchEvent(new CustomEvent('add-to-cart', {
-                        detail: itemData, // Pass item data with the event
-                        bubbles: true,     // Allow the event to bubble up
+                        detail: itemData,
+                        bubbles: true,
                         // nedanstående kanske inte är nödvändig
                         // composed: false     // Allow the event to cross the shadow DOM boundary
                     }));
