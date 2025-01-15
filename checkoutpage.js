@@ -22,7 +22,9 @@ class CartPage extends HTMLElement {
                 height: fit-content;
                 align-items: flex-start;
                 flex-direction: column;
-                border: 1px solid black;
+                border: 3px solid black;
+                border-radius: 10px;
+                padding: 20px;
             }
 
             .emptythecart {
