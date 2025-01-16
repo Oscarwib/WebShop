@@ -102,7 +102,7 @@ class HomePage extends HTMLElement {
         justify-content: space-between;
       }
 
-      .text-container {
+    .text-container {
         display: flex;
         flex-direction: column;
         // justify-content: center; 
@@ -123,6 +123,7 @@ class HomePage extends HTMLElement {
 
       #row2 {
         flex-direction: row;
+        margin-bottom: 100px;
       }
 
     

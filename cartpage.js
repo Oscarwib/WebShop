@@ -17,7 +17,11 @@ class ShoppingCart extends HTMLElement {
                     right: 0;
                     padding: 10px;
                     width: 25%;
-                    box-shadow: -10px 10px 8px #888888;
+                    border: 3px solid black;
+                    border-right: 0;
+                    border-radius: 10px;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
 
                 }
                 .cart-item {
@@ -121,15 +125,31 @@ class ShoppingCart extends HTMLElement {
     handleRemoved(event) {
         //plockar upp det event som skapav när man klickar remove, logiken är exakt likadan som i checkoutpage
         const itemIndex = event.detail.index;
-        this.cartItems.splice(itemIndex, 1)
+        const itemQuant = event.detail.quantity;
+
+        if (itemQuant > 1) {
+            this.cartItems[itemIndex].quantity -= 0.5; //remove half a shoe because both checkoutpage and cartpage remove at the same time and they both need to in order to sync
+        } else {
+            this.cartItems.splice(itemIndex, 1); //i varje eventlistener för varje remove knapp så raderas hela det itemet som finns på indexet för detta varv i loopen(sig själv)
+        }
+
+      
         this.renderCart();
     }
 
     handleAddToCart(event) {
         //skapar en variabel som tar alla detaljer om produkten som vi skickade med
         const itemData = event.detail;
-        this.cartItems.push(itemData); // lägger till dessa i arrayen cartitems
-        console.log('Item added to cart:', itemData);
+
+        const existingItem = this.cartItems.find(item => item.title === itemData.title && item.size === itemData.size);
+
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            this.cartItems.push(itemData); // lägger till dessa i arrayen cartitems
+            console.log('Item added to cart:', itemData); //loggar i konsolen
+        }
+
         this.renderCart(); //updaterar cart utseendet varje gång eventet plockas upp
         // döljer från start
         const cartFace = this.shadowRoot.querySelector('.cart')
@@ -154,12 +174,12 @@ class ShoppingCart extends HTMLElement {
         // render each item
         let total = 0;
         this.cartItems.forEach(item => {
-            total += parseFloat(item.price); // calculate total price
+            total += parseFloat(item.price * item.quantity); // calculate total price
             const itemElement = document.createElement('div');
             itemElement.classList.add('cart-item');
             itemElement.innerHTML = `
                 <img src="${item.image}" alt="${item.title}">
-                <span>${item.title} <br>$${item.price} <br>Size: ${item.size}</span>
+                <span>${item.title} <br>$${item.price * item.quantity} <br>Size: ${item.size} <br>Quantity: ${item.quantity}</span>
             `;
             cartItemsContainer.appendChild(itemElement);
         });
