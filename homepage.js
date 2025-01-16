@@ -188,7 +188,7 @@ class HomePage extends HTMLElement {
       const thumbnailsContainer = this.shadowRoot.querySelector('.thumbnails');
       const arrowLeft = this.shadowRoot.querySelector('.L');
       const arrowRight = this.shadowRoot.querySelector('.R');
-      const scrollDistance = 350;
+      const scrollDistance = 350; //scrolls 350p because each image is 300p wide and gives 50p for extra space between images
 
       arrowLeft.addEventListener('click', () => {
         thumbnailsContainer.scrollBy({

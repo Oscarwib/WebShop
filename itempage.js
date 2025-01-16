@@ -95,7 +95,7 @@ class ItemPage extends HTMLElement {
             .image {
                 width: 100%;
                 height: 100%;
-                object-fit: cover; /* Ensures the image covers the container without distortion */
+                object-fit: cover;
               
             }
         
