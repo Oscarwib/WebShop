@@ -165,4 +165,4 @@ class CartPage extends HTMLElement {
 }
 
 // define shopping cart element
-customElements.define('cart-page', CartPage);
+window.customElements.define('cart-page', CartPage);

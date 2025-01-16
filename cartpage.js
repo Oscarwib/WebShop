@@ -171,4 +171,4 @@ class ShoppingCart extends HTMLElement {
 }
 
 // shopping cart element
-customElements.define('shopping-cart', ShoppingCart);
+window.customElements.define('shopping-cart', ShoppingCart);
