@@ -162,12 +162,12 @@ class ShoppingCart extends HTMLElement {
         // render each item
         let total = 0;
         this.cartItems.forEach(item => {
-            total += parseFloat(item.price); // calculate total price
+            total += parseFloat(item.price * item.quantity); // calculate total price
             const itemElement = document.createElement('div');
             itemElement.classList.add('cart-item');
             itemElement.innerHTML = `
                 <img src="${item.image}" alt="${item.title}">
-                <span>${item.title} <br>$${item.price} <br>Size: ${item.size} <br>Antal: ${item.quantity}</span>
+                <span>${item.title} <br>$${item.price * item.quantity} <br>Size: ${item.size} <br>Antal: ${item.quantity}</span>
             `;
             cartItemsContainer.appendChild(itemElement);
         });

@@ -26,27 +26,30 @@ class CartPage extends HTMLElement {
                 padding: 20px;
             }
 
-            .emptythecart {
-                cursor: pointer;
-                color: white;
-                font-weight: bold;
-                font-family: Arial, Helvetica, sans-serif;
-                margin-top: 10px;
-                text-align: center;
-                background-color: red;
-                padding: 10px 20px;
-                border: 2px solid darkred;
+            #emptycart {
+                all: unset;
+                padding: 10px 15px;
                 border-radius: 10px;
-                display: inline-block;
-                transition: background-color 0.3s ease, transform 0.2s ease;
+                color: white;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 16px;
+                background-color: black;
+                cursor: pointer;
+                background-position: center;
+                transition: background 0.8s;
             }
-
-            .emptythecart:hover {
-                background-color: darkred;
+        
+            #emptycart:hover {
+                background-color: #4e4e4e;
+                background-image: radial-gradient(circle,transparent 1%, #4e4e4e 1%);
+                background-position: center;
+                background-size: 15000%;
             }
-
-            .emptythecart:active {
-                background-color: crimson;
+        
+            #emptycart:active {
+                transition: background 0s;
+                background-color: #c3c3c3;
+                background-size: 100%;
             }
         
             .checkout-container[aria-hidden="true"] {
@@ -78,6 +81,12 @@ class CartPage extends HTMLElement {
             text-decoration: underline; 
         }
 
+        #cart-items {
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+        }
+
         .remove-btn:hover {
             color: gray;
             cursor: pointer;
@@ -89,7 +98,7 @@ class CartPage extends HTMLElement {
                     <h3>Shopping Cart</h3>
                     <div id="cart-items"></div>
                     <p class="cart-total">Total: $0</p>
-                    <p id="empty-the-cart" class="emptythecart">Empty the cart</p>
+                    <button id="emptycart">Empty Cart</button>
                 </div>
             </div>
         `;
@@ -108,7 +117,7 @@ class CartPage extends HTMLElement {
     connectedCallback() {
         window.addEventListener('add-to-cart', this.addedToCart.bind(this));
 
-        const emptyCartButton = this.shadowRoot.querySelector('#empty-the-cart');
+        const emptyCartButton = this.shadowRoot.querySelector('#emptycart');
         emptyCartButton.addEventListener('click', this.emptyCart.bind(this));
 
     }
@@ -142,14 +151,14 @@ class CartPage extends HTMLElement {
         // render each item
         let total = 0;
         this.cartItems.forEach((item, index) => { //lade till index på varje elemnt i loopen
-            total += parseFloat(item.price); // calculate total price
+            total += parseFloat(item.price * item.quantity); // calculate total price
             const itemElement = document.createElement('div');
             itemElement.classList.add('cart-item');
             itemElement.innerHTML = `
                 <img src="${item.image}" alt="${item.title}">
                 <span>
                     ${item.title}<br>
-                    $${item.price}<br>
+                    $${item.price * item.quantity}<br>
                     Size: 
                     <select class="size-dropdown">
                         ${['40', '41', '42', '43', '44', '45'].map(size => `
@@ -173,8 +182,12 @@ class CartPage extends HTMLElement {
                     bubbles: true,
                 }));
 
+                if (item.quantity > 1) {
+                    item.quantity -= 1;
+                } else {
+                    this.cartItems.splice(index, 1); //i varje eventlistener för varje remove knapp så raderas hela det itemet som finns på indexet för detta varv i loopen(sig själv)
+                }
 
-                this.cartItems.splice(index, 1); //i varje eventlistener för varje remove knapp så raderas hela det itemet som finns på indexet för detta varv i loopen(sig själv)
                 this.updateCart();//uppdaterar carten efter att vi tagit bort det elemntet från arrayen
 
             });
@@ -197,12 +210,15 @@ class CartPage extends HTMLElement {
 
     emptyCart() {
         // empty array
-        this.cartItems = [];
+        setTimeout(() => {
 
-        this.updateCart();
+            this.cartItems = [];
 
-        const event = new CustomEvent('empty-cart', { bubbles: true, composed: true });
-        window.dispatchEvent(event);
+            this.updateCart();
+
+            const event = new CustomEvent('empty-cart', { bubbles: true, composed: true });
+            window.dispatchEvent(event);
+        }, 500);
     }
 
 
