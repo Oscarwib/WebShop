@@ -69,7 +69,6 @@ class CartPage extends HTMLElement {
 
         .cart-item {
             display: flex;
-            align-items:
         }
 
         .remove-btn {
@@ -112,17 +111,23 @@ class CartPage extends HTMLElement {
         const emptyCartButton = this.shadowRoot.querySelector('#empty-the-cart');
         emptyCartButton.addEventListener('click', this.emptyCart.bind(this));
 
-        //     drop.addEventListener('change', (event) => {
-        //         selectedSize = event.target.value;
-        // });
-
     }
 
     addedToCart(event) {
         //skapar en variabel som tar alla detaljer om produkten som vi skickade med
         const itemData = event.detail;
-        this.cartItems.push(itemData); // lägger till dessa i arrayen cartitems
-        console.log('Item added to cart:', itemData); //loggar i konsolen
+
+
+        const existingItem = this.cartItems.find(item => item.title === itemData.title && item.size === itemData.size);
+
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            this.cartItems.push(itemData); // lägger till dessa i arrayen cartitems
+            console.log('Item added to cart:', itemData); //loggar i konsolen
+        }
+
+
         this.updateCart(); //updaterar cart utseendet varje gång eventet plockas upp
 
     }
@@ -150,8 +155,9 @@ class CartPage extends HTMLElement {
                         ${['40', '41', '42', '43', '44', '45'].map(size => `
                             <option value="${size}" ${size === item.size ? 'selected' : ''}>${size}</option>
                         `).join('')}
-                    </select>
-                    <button class="remove-btn">remove</button>
+                    </select><br>
+                    <button class="remove-btn">remove</button><br>
+                    Antal: ${item.quantity}
                 </span>
             `;
             cartItemsContainer.appendChild(itemElement);

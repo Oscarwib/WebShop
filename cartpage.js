@@ -128,8 +128,16 @@ class ShoppingCart extends HTMLElement {
     handleAddToCart(event) {
         //skapar en variabel som tar alla detaljer om produkten som vi skickade med
         const itemData = event.detail;
-        this.cartItems.push(itemData); // lägger till dessa i arrayen cartitems
-        console.log('Item added to cart:', itemData);
+
+        const existingItem = this.cartItems.find(item => item.title === itemData.title && item.size === itemData.size);
+
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            this.cartItems.push(itemData); // lägger till dessa i arrayen cartitems
+            console.log('Item added to cart:', itemData); //loggar i konsolen
+        }
+
         this.renderCart(); //updaterar cart utseendet varje gång eventet plockas upp
         // döljer från start
         const cartFace = this.shadowRoot.querySelector('.cart')
@@ -159,7 +167,7 @@ class ShoppingCart extends HTMLElement {
             itemElement.classList.add('cart-item');
             itemElement.innerHTML = `
                 <img src="${item.image}" alt="${item.title}">
-                <span>${item.title} <br>$${item.price} <br>Size: ${item.size}</span>
+                <span>${item.title} <br>$${item.price} <br>Size: ${item.size} <br>Antal: ${item.quantity}</span>
             `;
             cartItemsContainer.appendChild(itemElement);
         });
