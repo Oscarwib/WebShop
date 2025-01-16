@@ -1,3 +1,4 @@
+import { renderCart } from './cartTools'; 
 class CartPage extends HTMLElement {
     constructor() {
         super();
@@ -96,14 +97,7 @@ class CartPage extends HTMLElement {
     }
 
 
-    show() {
-        const view = this.shadowRoot.querySelector('.checkout-container');
-        view.setAttribute("aria-hidden", "false");
-    }
-    hide() {
-        const view = this.shadowRoot.querySelector('.checkout-container');
-        view.setAttribute("aria-hidden", "true");
-    }
+  
 
     connectedCallback() {
         window.addEventListener('add-to-cart', this.addedToCart.bind(this));
@@ -111,6 +105,19 @@ class CartPage extends HTMLElement {
         const emptyCartButton = this.shadowRoot.querySelector('#empty-the-cart');
         emptyCartButton.addEventListener('click', this.emptyCart.bind(this));
 
+    }
+
+    show() {
+        const view = this.shadowRoot.querySelector('.checkout-container');
+        if (view) {
+            view.setAttribute("aria-hidden", "false");
+        } else {
+            console.log('could not find')
+        }
+    }
+    hide() {
+        const view = this.shadowRoot.querySelector('.checkout-container');
+        view.setAttribute("aria-hidden", "true");
     }
 
     addedToCart(event) {
@@ -136,64 +143,12 @@ class CartPage extends HTMLElement {
         const cartItemsContainer = this.shadowRoot.querySelector('#cart-items');
         const cartTotalElement = this.shadowRoot.querySelector('.cart-total');
 
-        // Nollställer innehållet i divven för att vi inte ska lägga till det som redan finns eftersom vi ritar allt i arrayen varje gång vi clickar
-        cartItemsContainer.innerHTML = '';
-
-        
-        // render each item 
-        let total = 0;
-        this.cartItems.forEach((item, index) => { //lade till index på varje elemnt i loopen
-            total += parseFloat(item.price); // calculate total price
-            const itemElement = document.createElement('div');
-            itemElement.classList.add('cart-item');
-            itemElement.innerHTML = `
-                <img src="${item.image}" alt="${item.title}">
-                <span>
-                    ${item.title}<br>
-                    $${item.price}<br>
-                    Size: 
-                    <select class="size-dropdown">
-                        ${['40', '41', '42', '43', '44', '45'].map(size => `
-                            <option value="${size}" ${size === item.size ? 'selected' : ''}>${size}</option>
-                        `).join('')}
-                    </select><br>
-                    <button class="remove-btn">remove</button><br>
-                    Antal: ${item.quantity}
-                </span>
-            `;
-            cartItemsContainer.appendChild(itemElement);
-
-            const removeBtn = itemElement.querySelector('.remove-btn');
-            removeBtn.addEventListener('click', () => {
-
-
-                //skapar ett nytt event när man klickar remove som skickar med indexet för den sko man har klickat remove på
-                this.dispatchEvent(new CustomEvent('removeItem', {
-                    //indexet för detta varv i for loopen som blir den sko vi klickar på
-                    detail: { index: index },
-                    bubbles: true,
-                }));
-
-
-                this.cartItems.splice(index, 1); //i varje eventlistener för varje remove knapp så raderas hela det itemet som finns på indexet för detta varv i loopen(sig själv)
-                this.updateCart();//uppdaterar carten efter att vi tagit bort det elemntet från arrayen
-
-            });
-
-            // size change dropdown
-            const sizeDropdown = itemElement.querySelector('.size-dropdown');
-            sizeDropdown.addEventListener('change', (event) => {
-                const newSize = event.target.value;
-                this.cartItems[index].size = newSize; // update shoesize
-                console.log(`Item size updated to: ${newSize}`); // log update
-            });
-
+        // Use the shared function to render the cart
+        renderCart(this.cartItems, cartItemsContainer, cartTotalElement, (index) => {
+            // Optional: Add behavior for remove button
+            this.cartItems.splice(index, 1);
+            this.updateCart();
         });
-
-
-
-        // total price update
-        cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
     }
 
     emptyCart() {

@@ -1,3 +1,5 @@
+import { renderCart } from './cartTools.js';
+
 class ShoppingCart extends HTMLElement {
     constructor() {
         super();
@@ -152,29 +154,20 @@ class ShoppingCart extends HTMLElement {
         this.renderCart();
     }
 
+    
     renderCart() {
         const cartItemsContainer = this.shadowRoot.querySelector('#cart-items');
         const cartTotalElement = this.shadowRoot.querySelector('.cart-total');
 
-        // Nollställer innehållet i divven för att vi inte ska lägga till det som redan finns eftersom vi ritar allt i arrayen varje gång vi clickar
-        cartItemsContainer.innerHTML = '';
-
-        // render each item
-        let total = 0;
-        this.cartItems.forEach(item => {
-            total += parseFloat(item.price); // calculate total price
-            const itemElement = document.createElement('div');
-            itemElement.classList.add('cart-item');
-            itemElement.innerHTML = `
-                <img src="${item.image}" alt="${item.title}">
-                <span>${item.title} <br>$${item.price} <br>Size: ${item.size} <br>Antal: ${item.quantity}</span>
-            `;
-            cartItemsContainer.appendChild(itemElement);
+        // Use the shared function to render the cart
+        renderCart(this.cartItems, cartItemsContainer, cartTotalElement, (index) => {
+            // Optional: Add behavior for remove button
+            this.cartItems.splice(index, 1);
+            this.renderCart();
         });
-
-        // update total price
-        cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
     }
+
+   
 }
 
 // shopping cart element
