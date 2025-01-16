@@ -139,7 +139,8 @@ class CartPage extends HTMLElement {
         // Nollställer innehållet i divven för att vi inte ska lägga till det som redan finns eftersom vi ritar allt i arrayen varje gång vi clickar
         cartItemsContainer.innerHTML = '';
 
-        // render each item
+        
+        // render each item 
         let total = 0;
         this.cartItems.forEach((item, index) => { //lade till index på varje elemnt i loopen
             total += parseFloat(item.price); // calculate total price
