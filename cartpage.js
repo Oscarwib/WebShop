@@ -17,7 +17,11 @@ class ShoppingCart extends HTMLElement {
                     right: 0;
                     padding: 10px;
                     width: 25%;
-                    box-shadow: -10px 10px 8px #888888;
+                    border: 3px solid black;
+                    border-right: 0;
+                    border-radius: 10px;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
 
                 }
                 .cart-item {
@@ -121,7 +125,15 @@ class ShoppingCart extends HTMLElement {
     handleRemoved(event) {
         //plockar upp det event som skapav när man klickar remove, logiken är exakt likadan som i checkoutpage
         const itemIndex = event.detail.index;
-        this.cartItems.splice(itemIndex, 1)
+        const itemQuant = event.detail.quantity;
+
+        if (itemQuant > 1) {
+            this.cartItems[itemIndex].quantity -= 1;
+        } else {
+            this.cartItems.splice(itemIndex, 1); //i varje eventlistener för varje remove knapp så raderas hela det itemet som finns på indexet för detta varv i loopen(sig själv)
+        }
+
+      
         this.renderCart();
     }
 

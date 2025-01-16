@@ -130,7 +130,7 @@ class CartPage extends HTMLElement {
         const existingItem = this.cartItems.find(item => item.title === itemData.title && item.size === itemData.size);
 
         if (existingItem) {
-            existingItem.quantity += 1;
+            existingItem.quantity + 1;
         } else {
             this.cartItems.push(itemData); // lägger till dessa i arrayen cartitems
             console.log('Item added to cart:', itemData); //loggar i konsolen
@@ -174,19 +174,18 @@ class CartPage extends HTMLElement {
             const removeBtn = itemElement.querySelector('.remove-btn');
             removeBtn.addEventListener('click', () => {
 
-
-                //skapar ett nytt event när man klickar remove som skickar med indexet för den sko man har klickat remove på
-                this.dispatchEvent(new CustomEvent('removeItem', {
-                    //indexet för detta varv i for loopen som blir den sko vi klickar på
-                    detail: { index: index },
-                    bubbles: true,
-                }));
-
                 if (item.quantity > 1) {
                     item.quantity -= 1;
                 } else {
                     this.cartItems.splice(index, 1); //i varje eventlistener för varje remove knapp så raderas hela det itemet som finns på indexet för detta varv i loopen(sig själv)
                 }
+
+                //skapar ett nytt event när man klickar remove som skickar med indexet för den sko man har klickat remove på
+                this.dispatchEvent(new CustomEvent('removeItem', {
+                    //indexet för detta varv i for loopen som blir den sko vi klickar på
+                    detail: { index: index, quantity: item.quantity },
+                    bubbles: true,
+                }));
 
                 this.updateCart();//uppdaterar carten efter att vi tagit bort det elemntet från arrayen
 
