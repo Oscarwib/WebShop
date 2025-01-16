@@ -102,7 +102,7 @@ class ShoppingCart extends HTMLElement {
     }
 
 
- 
+
 
     connectedCallback() {
         // lyssnar efter att eventet startade i item componenten
@@ -127,13 +127,13 @@ class ShoppingCart extends HTMLElement {
         const itemIndex = event.detail.index;
         const itemQuant = event.detail.quantity;
 
-        if (itemQuant > 1) {
-            this.cartItems[itemIndex].quantity -= 1;
-        } else {
+
+
+        if (itemQuant < 1) {
             this.cartItems.splice(itemIndex, 1); //i varje eventlistener för varje remove knapp så raderas hela det itemet som finns på indexet för detta varv i loopen(sig själv)
         }
 
-      
+
         this.renderCart();
     }
 
