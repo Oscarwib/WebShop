@@ -131,6 +131,9 @@ class ShoppingCart extends HTMLElement {
 
         if (itemQuant < 1) {
             this.cartItems.splice(itemIndex, 1); //i varje eventlistener för varje remove knapp så raderas hela det itemet som finns på indexet för detta varv i loopen(sig själv)
+        } else {
+            this.cartItems[itemIndex].quantity = itemQuant;
+            console.log('removed')
         }
 
 
