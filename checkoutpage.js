@@ -166,7 +166,7 @@ class CartPage extends HTMLElement {
                         `).join('')}
                     </select><br>
                     <button class="remove-btn">remove</button><br>
-                    Antal: ${item.quantity}
+                    Quantity: ${item.quantity}
                 </span>
             `;
             cartItemsContainer.appendChild(itemElement);

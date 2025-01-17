@@ -131,6 +131,9 @@ class ShoppingCart extends HTMLElement {
 
         if (itemQuant < 1) {
             this.cartItems.splice(itemIndex, 1); //i varje eventlistener för varje remove knapp så raderas hela det itemet som finns på indexet för detta varv i loopen(sig själv)
+        } else {
+            this.cartItems[itemIndex].quantity = itemQuant;
+            console.log('removed')
         }
 
 
@@ -179,7 +182,7 @@ class ShoppingCart extends HTMLElement {
             itemElement.classList.add('cart-item');
             itemElement.innerHTML = `
                 <img src="${item.image}" alt="${item.title}">
-                <span>${item.title} <br>$${item.price * item.quantity} <br>Size: ${item.size} <br>Antal: ${item.quantity}</span>
+                <span>${item.title} <br>$${item.price * item.quantity} <br>Size: ${item.size} <br>Quantity: ${item.quantity}</span>
             `;
             cartItemsContainer.appendChild(itemElement);
         });
